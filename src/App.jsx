@@ -1,34 +1,49 @@
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { toDoReducer } from "./08-useReducer/toDoReducer";
-import ToDoList from "./Components/TodoList";
-import ToDoAddForm from "./Components/ToDoAddForm";
+import {ToDoList} from "./Components/TodoList";
+import {ToDoAddForm} from "./Components/ToDoAddForm";
 
 export const App=()=>{
 
+    
+
     const handleNewTodo=(toDo)=>{
-        console.log(toDos);
+
+        const action = {
+            type: '[TODO] Add ToDo',
+            payload: toDo
+        }
+
+        dispatch(action);
     }
 
     const initialState = [
-        {
-        id: new Date().getTime(),
-        descripcion: 'Cualquier descripción -- 1',
-        done:false,
-        },
-        {
-            id: new Date().getTime()*3,
-            descripcion: 'Cualquier otra descripción ++',
-            done:false,    
-        },
-        {
-            id: new Date().getTime()*4,
-            descripcion: 'Cualquier otra descripción +++',
-            done:false,    
-        }        
+        //{
+        // id: new Date().getTime(),
+        // descripcion: 'Cualquier descripción 1',
+        // done:false,
+        // }   
+    ]    
+    //Recuperar del local Storage la información del formulario, para que sea persistente y no se borre al actualizar el navegador
+    const init =()=>{
+        return JSON.parse(localStorage.getItem('toDos')) || [];
+    }
 
-    ]
+    const [toDos, dispatch] = useReducer (toDoReducer, initialState, init);
 
-    const [toDos, dispatch] = useReducer (toDoReducer, initialState);
+    const handleDeleteToDo = (id)=>{
+        console.log('Aquí borrando');
+        dispatch({
+        type:'[TODO] Remove ToDo',
+        payload:id});
+    }
+
+    useEffect(()=>{
+       localStorage.setItem('toDos',JSON.stringify(toDos)); 
+    },
+    [toDos]
+    )
+    
 
 return (    
     <>
@@ -38,7 +53,8 @@ return (
 
 <div className="row">
 <div className="col-7">
-    <ToDoList toDoList={toDos}/>
+    <ToDoList toDoList={toDos}
+              onDeleteToDo={handleDeleteToDo}  />
 </div>
     <div className="col-5">        
         <h4>Agregar Actividad</h4>
@@ -47,8 +63,6 @@ return (
     </div>
 
 </div>
-
-
 
     <button className="btn btn-button mt-2">
 

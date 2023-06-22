@@ -1,11 +1,11 @@
 import { SvgButton } from "./SvgButton";
-export const ToDoItem = ({item})=>{
+export const ToDoItem = ({item, onDeleteToDo})=>{
     return(
         <>
              <li key={item.id} className="list-group-item d-flex justify-content-between">    
               <span className="align-self-center">{item.descripcion}</span>
               <button className="btn btn-danger"
-               onClick={(e)=>onHandlerClick(e)}> 
+                      onClick={()=>onDeleteToDo(item.id)}> 
               <SvgButton/>            
               </button>                
              </li>

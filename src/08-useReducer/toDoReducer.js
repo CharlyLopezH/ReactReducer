@@ -1,10 +1,12 @@
-export const toDoReducer=(initialState, action)=>{
+export const toDoReducer=(initialState=[], action)=>{
 
-    switch (initialState=[], action.type) {
-        case 'ABC': 
-        throw new Error ('Action.type = ABC no implementada ');
-        default:
+    switch (action.type) {
+        case '[TODO] Add ToDo': 
+          return [...initialState, action.payload];
+         case '[TODO] Remove ToDo':
+          return initialState.filter(todo=>todo.id !==action.payload);
+         
+         default:
             return initialState;
     }
-
 }
