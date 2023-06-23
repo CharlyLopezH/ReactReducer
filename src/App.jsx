@@ -38,6 +38,14 @@ export const App=()=>{
         payload:id});
     }
 
+    const handleToggleToDo = (id)=>{
+        console.log(`toggle ${id}`);
+        dispatch({
+            type:'[TODO] Toggle ToDo',
+            payload:id
+        })
+    }
+
     useEffect(()=>{
        localStorage.setItem('toDos',JSON.stringify(toDos)); 
     },
@@ -54,7 +62,8 @@ return (
 <div className="row">
 <div className="col-7">
     <ToDoList toDoList={toDos}
-              onDeleteToDo={handleDeleteToDo}  />
+              onDeleteToDo={handleDeleteToDo}
+              onToggleToDo={handleToggleToDo}  />
 </div>
     <div className="col-5">        
         <h4>Agregar Actividad</h4>

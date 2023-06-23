@@ -1,6 +1,6 @@
 import ToDoItem from "./ToDoItem";
 
-export const ToDoList=({toDoList=[], onDeleteToDo})=> {
+export const ToDoList=({toDoList=[], onDeleteToDo, onToggleToDo})=> {
 
 const onHandlerClick =()=> {    
     console.log(toDoList);
@@ -11,7 +11,10 @@ const onHandlerClick =()=> {
             <h1>Items Form</h1>
         {
             toDoList.map(item => 
-            <ToDoItem key={item.id} item={item} onDeleteToDo={onDeleteToDo}/>
+            <ToDoItem key={item.id} 
+            item={item} 
+            onDeleteToDo={onDeleteToDo}
+            onToggleToDo={onToggleToDo}/>
              )
         }
         {/* {
