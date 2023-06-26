@@ -2,56 +2,12 @@ import { useEffect, useReducer } from "react"
 import { toDoReducer } from "./08-useReducer/toDoReducer";
 import {ToDoList} from "./Components/TodoList";
 import {ToDoAddForm} from "./Components/ToDoAddForm";
+import {useToDo} from './hooks/useToDo';
+
 
 export const App=()=>{
 
-    
-
-    const handleNewTodo=(toDo)=>{
-
-        const action = {
-            type: '[TODO] Add ToDo',
-            payload: toDo
-        }
-
-        dispatch(action);
-    }
-
-    const initialState = [
-        //{
-        // id: new Date().getTime(),
-        // descripcion: 'Cualquier descripción 1',
-        // done:false,
-        // }   
-    ]    
-    //Recuperar del local Storage la información del formulario, para que sea persistente y no se borre al actualizar el navegador
-    const init =()=>{
-        return JSON.parse(localStorage.getItem('toDos')) || [];
-    }
-
-    const [toDos, dispatch] = useReducer (toDoReducer, initialState, init);
-
-    const handleDeleteToDo = (id)=>{
-        console.log('Aquí borrando');
-        dispatch({
-        type:'[TODO] Remove ToDo',
-        payload:id});
-    }
-
-    const handleToggleToDo = (id)=>{
-        console.log(`toggle ${id}`);
-        dispatch({
-            type:'[TODO] Toggle ToDo',
-            payload:id
-        })
-    }
-
-    useEffect(()=>{
-       localStorage.setItem('toDos',JSON.stringify(toDos)); 
-    },
-    [toDos]
-    )
-    
+    const {toDos, handleDeleteToDo, handleToggleToDo,handleNewTodo}=useToDo();
 
 return (    
     <>

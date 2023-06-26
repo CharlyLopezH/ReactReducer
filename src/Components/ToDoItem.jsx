@@ -3,7 +3,7 @@ export const ToDoItem = ({item, onDeleteToDo, onToggleToDo})=>{
     return(
         <>
              <li key={item.id} className="list-group-item d-flex justify-content-between">    
-              <span className={`align-self-center ${item.done && 'text-decoration-line-through'}`}
+              <span className={`align-self-center ${ (item.done) ? 'text-decoration-line-through':''}`}
                     onClick={()=> onToggleToDo(item.id)}
                                             
               >{item.descripcion}</span>
