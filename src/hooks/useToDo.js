@@ -4,13 +4,16 @@ import { toDoReducer } from "../08-useReducer/toDoReducer";
 //El código que consume el App va a estar definido aquí. 
 export const useToDo=()=>{
 
-
     const init =()=>{
         return JSON.parse(localStorage.getItem('toDos')) || [];
     }
 
     const [toDos, dispatch] = useReducer (toDoReducer, [], init);
 
+
+    const pendCount=()=>{
+        toDos.filter(t=>!t.done);
+    } 
 
     const handleDeleteToDo = (id)=>{
          console.log('Aquí borrando desde el Handle del (Botón) Delete'+ id);
@@ -48,7 +51,9 @@ return {
     toDos,
     handleDeleteToDo,
     handleToggleToDo,
-    handleNewTodo
+    handleNewTodo,
+    toDosCount: toDos.length,
+    pendCount: toDos.filter(t=>!t.done).length
 }    
 
 }

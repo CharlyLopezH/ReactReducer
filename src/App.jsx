@@ -7,12 +7,12 @@ import {useToDo} from './hooks/useToDo';
 
 export const App=()=>{
 
-    const {toDos, handleDeleteToDo, handleToggleToDo,handleNewTodo}=useToDo();
+    const {toDos, handleDeleteToDo, handleToggleToDo,handleNewTodo, toDosCount, pendCount}=useToDo();
 
 return (    
     <>
     <div className="container">
-    <h2>Redux Sample Todo's (X), <code> Por terminar, (y) </code></h2>
+    <h2>Redux Sample To Do's: {toDosCount}, <code> Por terminar, {pendCount} </code></h2>
     <hr></hr>
 
 <div className="row">
